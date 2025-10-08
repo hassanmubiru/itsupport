@@ -224,5 +224,6 @@ class SupabaseService {
       throw Exception('Failed to update ticket status');
     }
   }
+  
 }
 
