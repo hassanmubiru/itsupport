@@ -245,13 +245,12 @@ class SupabaseService {
       throw Exception('Failed to load activities');
     }
   }
-  static Future<void>createActivity(String ticketId,String icon,String title,String userName)async{
+  static Future<void>createTicketActivity(String ticketId,String icon,String title,String userName)async{
     try {
       final activityData = {
         'ticket_id':ticketId,
         'icon':icon,
         'title':title,
-        'created_at':DateTime.now().toIso8601String(),
         'user_name':userName,
       };
       await supabase.from('ticket_activities').insert(activityData);
@@ -260,5 +259,15 @@ class SupabaseService {
       throw Exception('Failed to create activity');
     }
   }
-}
 
+  // Performance Metrics
+  static Future<List<PerformanceMetric>> fetchPerformanceMetrics() async {
+    try {
+      final response = await supabase.from('performance_metrics').select().order('timestamp', ascending: false);
+      return (response as List).map((metric) => PerformanceMetric.fromJson(metric)).toList();
+    } catch (e) {
+      print('Error fetching performance metrics: $e');
+      throw Exception('Failed to load performance metrics');
+    }
+  }
+}
