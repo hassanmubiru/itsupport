@@ -254,7 +254,7 @@ class SupabaseService {
         'created_at':DateTime.now().toIso8601String(),
         'user_name':userName,
       };
-      await supabase.from('activities').insert(activityData);
+      await supabase.from('ticket_activities').insert(activityData);
     } catch (e) {
       print('Error creating activity: $e');
       throw Exception('Failed to create activity');
