@@ -237,9 +237,12 @@ class SupabaseService {
   // Activities
   static Future<List<Activity>> fetchActivites(String ticketId)async{
     try {
-      
+      final response = await supabase.from('ticket_activities').select().eq(
+        'ticket_id', ticketId).order('created_at',ascending:false);
+      return (response as List).map((activity) => Activity.fromJson(activity)).toList();
     } catch (e) {
-      
+      print('Error fetching activities: $e');
+      throw Exception('Failed to load activities');
     }
   }
 }
