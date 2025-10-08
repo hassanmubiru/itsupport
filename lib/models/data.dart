@@ -280,30 +280,35 @@ class SupabaseService {
       final now = DateTime.now();
       final defaultMetrics = [
         {
-          'name': 'Response Time',
+          'name': 'CPU',
           'value': 45.0,
           'unit': '%',
           'trend': 'up',
           'trend_value': 5.0,
         },
         {
-          'name': 'Tickets Resolved',
+          'name': 'Disk',
           'value': 70.0,
           'unit': '%',
           'trend': 'up',
           'trend_value': 12.0,
         },
         {
-          'name': 'Customer Satisfaction',
-          'value': 4.2,
+          'name': 'Disk',
+          'value': 32.0,
           'unit': 'stars',
           'trend': 'up',
-          'trend_value': 0.2,
+          'trend_value': -3.0,
           'timestamp': now.toIso8601String(),
         },
       ];
+
+      for (var metric in defaultMetrics) {
+        await supabase.from('performance_metrics').insert(metric);
+        
+      }
       
-      await supabase.from('performance_metrics').insert(defaultMetrics);
+      // Removed redundant insert as we're already inserting each metric individually above
     } catch (e) {
       print('Error inserting default metrics: $e');
       throw Exception('Failed to insert default metrics');
