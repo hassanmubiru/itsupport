@@ -226,10 +226,17 @@ class SupabaseService {
   }
   static Future<void> reassignTicket(String id,String assignedTo)async{
     try {
-      
+      await supabase.from('tickets').update({'assigned_to':assignedTo}).eq('id',id);
+      // Create activity
+      await createActivity(id, 'person_add', ' Assigned to $assignedTo', 'System');
     } catch (e) {
-      
+      print('Error reassigning ticket: $e');
+      throw Exception('Failed to reassign ticket');
     }
+  }
+  // Activities
+  static Future<List<Activity>> fetchActivites(String ticketId)async{
+    try
   }
 }
 
