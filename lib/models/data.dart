@@ -185,6 +185,7 @@ class SupabaseService {
         'Ticket Created',
         ticketData['reporter']
       );
+      return ticket;
     } catch (e) {
       print('Error creating ticket: $e');
       throw Exception('Failed to create ticket');
