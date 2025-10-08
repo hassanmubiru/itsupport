@@ -243,7 +243,21 @@ class SupabaseService {
     } catch (e) {
       print('Error fetching activities: $e');
       throw Exception('Failed to load activities');
-      return [];
+    }
+  }
+  static Future<void>createActivity(String ticketId,String icon,String title,String userName)async{
+    try {
+      final activityData = {
+        'ticket_id':ticketId,
+        'icon':icon,
+        'title':title,
+        'created_at':DateTime.now().toIso8601String(),
+        'user_name':userName,
+      };
+      await supabase.from('activities').insert(activityData);
+    } catch (e) {
+      print('Error creating activity: $e');
+      throw Exception('Failed to create activity');
     }
   }
 }
