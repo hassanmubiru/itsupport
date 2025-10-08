@@ -38,7 +38,7 @@ class Ticket {
       reporter: json['reporter'],
       department: json['department'],
       activities: (json['activities'] as List)
-          .map((activity) => Activity(activity))
+          .map((activity) => Activity(activity, id: '', ticketId: '', icon: '', title: '', createdAt: null, userName: ''))
           .toList(),
     );
   }
