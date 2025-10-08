@@ -141,4 +141,18 @@ class PerformanceMetric {
   }
 }
 
-// 
+// Supabase Services
+
+class SupabaseService {
+  
+  // Fetch tickets from Supabase
+  // Ticket CRUD 
+  static Future<List<Ticket>> fetchTickets() async {
+    try {
+      final response = await supabase.from('tickets').select().order('created_at', ascending: false);
+      return (response as List).map((ticket) => Ticket.fromJson(ticket)).toList();
+    } catch (e) {
+      return [];  
+    }
+  }
+}
