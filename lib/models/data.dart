@@ -60,3 +60,20 @@ class Ticket {
   }
 }
 
+class Activity {
+  late final String id;
+  late final String ticketId;
+  late final String icon;
+  late final String title;
+  late final DateTime createdAt;
+  late final String userName;
+
+  Activity({
+    required this.id,
+    required this.ticketId,
+    required this.icon,
+    required this.title,
+    required this.createdAt,
+    required this.userName,
+  });
+}
