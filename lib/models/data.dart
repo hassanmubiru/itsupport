@@ -277,8 +277,7 @@ class SupabaseService {
   
   static Future<void> _insertDefaultMetrics() async {
     try {
-      final now = DateTime.now();
-      final defaultMetrics = [
+      final metrics = [
         {
           'name': 'CPU',
           'value': 45.0,
@@ -299,16 +298,15 @@ class SupabaseService {
           'unit': 'stars',
           'trend': 'up',
           'trend_value': -3.0,
-          'timestamp': now.toIso8601String(),
         },
       ];
 
-      for (var metric in defaultMetrics) {
+      for (var metric in metrics) {
         await supabase.from('performance_metrics').insert(metric);
         
       }
       
-      // Removed redundant insert as we're already inserting each metric individually above
+      await supabase.from('performance_metrics').insert(defaultMetrics);
     } catch (e) {
       print('Error inserting default metrics: $e');
       throw Exception('Failed to insert default metrics');
