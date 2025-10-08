@@ -154,7 +154,19 @@ class SupabaseService {
       final response = await supabase.from('tickets').select().order('created_at', ascending: false);
       return (response as List).map((ticket) => Ticket.fromJson(ticket)).toList();
     } catch (e) {
-      return [];  
+      print('Error fetching tickets: $e');
+      throw Exception('Failed to load tickets');
+       
+    }
+  }
+
+  static Future<Ticket> fetchTicketById(String id) async {
+    try {
+      final response = await supabase.from('tickets').select().eq('id', id).single();
+      return Ticket.fromJson(response);
+    } catch (e) {
+      print('Error fetching ticket by ID: $e');
+      throw Exception('Failed to load ticket');
     }
   }
 }
