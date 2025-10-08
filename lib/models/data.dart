@@ -264,6 +264,10 @@ class SupabaseService {
   static Future<List<PerformanceMetric>> fetchPerformanceMetrics() async {
     try {
       final response = await supabase.from('performance_metrics').select().order('timestamp', ascending: false).limit(3);
+      if ((response as List).isEmpty) {
+        await _insertDefaultMetrics();
+        return fetchPerformanceMetrics();
+      }
       return (response as List).map((metric) => PerformanceMetric.fromJson(metric)).toList();
     } catch (e) {
       print('Error fetching performance metrics: $e');
