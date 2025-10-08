@@ -305,11 +305,39 @@ class SupabaseService {
         await supabase.from('performance_metrics').insert(metric);
         
       }
-      
-      await supabase.from('performance_metrics').insert(defaultMetrics);
-    } catch (e) {
-      print('Error inserting default metrics: $e');
-      throw Exception('Failed to insert default metrics');
+
+      await supabase.from('performance_metrics').insert(metrics);
+    } 
+    }
+    static Future <void> updateMetrics() async{
+      try {
+        // simulate metric updates
+        final metrics = [
+          {
+            'name': 'CPU',
+            'value': 40.0 + (DateTime.now().second % 20).toDouble(),
+            'unit': '%',
+            'trend': 'up',
+            'trend_value': 5.0,
+          },
+          {
+            'name': 'Disk',
+            'value': 65.0,
+            'unit': '%',
+            'trend': 'down',
+            'trend_value': -5.0,
+          },
+          {
+            'name': 'Rating',
+            'value': 4.5,
+            'unit': 'stars',
+            'trend': 'up',
+            'trend_value': 0.5,
+          },
+        ]
+      } catch (e) {
+        
+      }
     }
   }
 }
