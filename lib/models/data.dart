@@ -22,7 +22,7 @@ class Ticket {
     required this.assignedTo,
     required this.reporter,
     required this.department,
-    required this.activities,
+    this.activities = const [],
   });
 
   factory Ticket.fromJson(Map<String, dynamic> json) {
@@ -37,9 +37,7 @@ class Ticket {
       assignedTo: json['assigned_to'],
       reporter: json['reporter'],
       department: json['department'],
-      activities: (json['activities'] as List)
-          .map((activity) => Activity(activity, id: '', ticketId: '', icon: '', title: '', createdAt: null, userName: ''))
-          .toList(),
+      activities: [],
     );
   }
 
