@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:itsupport/screens/dashboardscreen.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Supabase.initialize(
+    url: 'https://your-supabase-url.supabase.co',
+    anonKey: 'your-anon-key',
+  );
   runApp(const MyApp());
 }
 
+final supabase = Supabase.instance.client;
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
