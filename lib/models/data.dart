@@ -224,5 +224,15 @@ class SupabaseService {
       throw Exception('Failed to update ticket status');
     }
   }
+  static Future<void>updateTicketStatus(String id,String status)async{
+    try {
+      await supabase.from('tickets').update({'status':status}).eq('id',id);
+      // Create activity
+      await createActivity(id, 'update', 'Status Updated to $status', 'System');  
+    } catch (e) {
+      print('Error updating ticket status: $e');
+      throw Exception('Failed to update ticket status');
+    }
+  }
 }
 
