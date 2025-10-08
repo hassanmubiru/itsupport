@@ -224,6 +224,12 @@ class SupabaseService {
       throw Exception('Failed to update ticket status');
     }
   }
-  
+  static Future<void> reassignTicket(String id,String assignedTo)async{
+    try {
+      
+    } catch (e) {
+      
+    }
+  }
 }
 
