@@ -274,4 +274,39 @@ class SupabaseService {
       throw Exception('Failed to load performance metrics');
     }
   }
+  
+  static Future<void> _insertDefaultMetrics() async {
+    try {
+      final now = DateTime.now();
+      final defaultMetrics = [
+        {
+          'name': 'Response Time',
+          'value': 45.0,
+          'unit': '%',
+          'trend': 'up',
+          'trend_value': 5.0,
+        },
+        {
+          'name': 'Tickets Resolved',
+          'value': 70.0,
+          'unit': '%',
+          'trend': 'up',
+          'trend_value': 12.0,
+        },
+        {
+          'name': 'Customer Satisfaction',
+          'value': 4.2,
+          'unit': 'stars',
+          'trend': 'up',
+          'trend_value': 0.2,
+          'timestamp': now.toIso8601String(),
+        },
+      ];
+      
+      await supabase.from('performance_metrics').insert(defaultMetrics);
+    } catch (e) {
+      print('Error inserting default metrics: $e');
+      throw Exception('Failed to insert default metrics');
+    }
+  }
 }
