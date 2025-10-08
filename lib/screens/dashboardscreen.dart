@@ -90,3 +90,4 @@ class CardInfo extends StatelessWidget {
     );
   }
 }
+
