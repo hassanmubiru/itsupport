@@ -169,4 +169,25 @@ class SupabaseService {
       throw Exception('Failed to load ticket');
     }
   }
+  static Future<Ticket>createTicket(Map<String,dynamic> ticketData) async{
+    try {
+      // Generate ticket number
+      final ticketNumber = 'TK${DateTime.now().millisecondsSinceEpoch.toString().substring(7)}';
+      ticketData['ticket_number'] = ticketNumber;
+      ticketData['created_at'] = DateTime.now().toIso8601String();
+      final response = await supabase.from('tickets').insert(ticketData).single();
+      final ticket = Ticket.fromJson(response);
+
+      // Create activity
+      await createActivity(
+        ticket.id,
+        'add_circle',
+        'Ticket Created',
+        ticketData['reporter']
+      );
+    } catch (e) {
+      print('Error creating ticket: $e');
+      throw Exception('Failed to create ticket');
+    }
+  }
 }
