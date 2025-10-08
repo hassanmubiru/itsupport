@@ -77,3 +77,7 @@ class Activity {
     required this.userName,
   });
 }
+
+factory Activity.fromJson(Map<String,dynamic>json){
+  return Activity();
+}
