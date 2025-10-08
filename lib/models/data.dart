@@ -236,7 +236,11 @@ class SupabaseService {
   }
   // Activities
   static Future<List<Activity>> fetchActivites(String ticketId)async{
-    try
+    try {
+      
+    } catch (e) {
+      
+    }
   }
 }
 
