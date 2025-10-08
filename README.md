@@ -1,6 +1,6 @@
-# itsupport
+# IT Support
 
-A new Flutter project.
+A Flutter project for task performance and management.
 
 ## Getting Started
 
