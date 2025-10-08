@@ -68,7 +68,7 @@ class Activity {
   late final DateTime createdAt;
   late final String userName;
 
-  Activity(activity, {
+  Activity({
     required this.id,
     required this.ticketId,
     required this.icon,
@@ -76,15 +76,26 @@ class Activity {
     required this.createdAt,
     required this.userName,
   });
-}
 
-factory Activity.fromJson(Map<String,dynamic>json){
-  return Activity(
-    id:json['id'],
-    ticketId:json['ticket_id'],
-    icon:json['icon'],
-    title:json['title'],
-    createdAt:DateTime.parse(json['created_at']),
-    userName:json['user_name'],
-  );
+  factory Activity.fromJson(Map<String, dynamic> json) {
+    return Activity(
+      id: json['id'],
+      ticketId: json['ticket_id'],
+      icon: json['icon'],
+      title: json['title'],
+      createdAt: DateTime.parse(json['created_at']),
+      userName: json['user_name'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'ticket_id': ticketId,
+      'icon': icon,
+      'title': title,
+      'created_at': createdAt.toIso8601String(),
+      'user_name': userName,
+    };
+  }
 }
