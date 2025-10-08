@@ -79,5 +79,12 @@ class Activity {
 }
 
 factory Activity.fromJson(Map<String,dynamic>json){
-  return Activity();
+  return Activity(
+    id:json['id'],
+    ticketId:json['ticket_id'],
+    icon:json['icon'],
+    title:json['title'],
+    createdAt:DateTime.parse(json['created_at']),
+    userName:json['user_name'],
+  );
 }
