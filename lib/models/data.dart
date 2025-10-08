@@ -1,3 +1,5 @@
+import 'package:itsupport/main.dart' show supabase;
+
 class Ticket {
   late final String id;
   late final String ticketNumber;
