@@ -97,3 +97,46 @@ class Activity {
     };
   }
 }
+
+class PerformanceMetric {
+  late final String id;
+  late final String name;
+  late final double value;
+  late final String unit;
+  late final String trend;
+  late final double trendValue;
+  late final DateTime timestamp;
+
+  PerformanceMetric({
+    required this.id,
+    required this.name,
+    required this.value,
+    required this.unit,
+    required this.trend,
+    required this.trendValue,
+    required this.timestamp,
+  });
+
+  factory PerformanceMetric.fromJson(Map<String, dynamic> json) {
+    return PerformanceMetric(
+      id: json['id'],
+      name: json['name'],
+      value: (json['value'] as num).toDouble(),
+      unit: json['unit'],
+      trend: json['trend'],
+      trendValue: (json['trend_value'] as num).toDouble(),
+      timestamp: DateTime.parse(json['timestamp']),
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'unit': unit,
+      'value': value,
+      'trend': trend,
+      'trend_value': trendValue,
+    };
+  }
+}
