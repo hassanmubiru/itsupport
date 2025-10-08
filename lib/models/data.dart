@@ -68,7 +68,7 @@ class Activity {
   late final DateTime createdAt;
   late final String userName;
 
-  Activity({
+  Activity(activity, {
     required this.id,
     required this.ticketId,
     required this.icon,
