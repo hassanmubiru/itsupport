@@ -212,4 +212,14 @@ class SupabaseService {
       throw Exception('Failed to create activity');
     }
   }
+
+  static Future<void>updateTicketStatus(String id,String status)async{
+    try {
+      await supabase.from('tickets').update({'status':status}).eq('id',id);
+    } catch (e) {
+      print('Error updating ticket status: $e');
+      throw Exception('Failed to update ticket status');
+    }
+  }
 }
+
