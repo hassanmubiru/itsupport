@@ -243,6 +243,7 @@ class SupabaseService {
     } catch (e) {
       print('Error fetching activities: $e');
       throw Exception('Failed to load activities');
+      return [];
     }
   }
 }
