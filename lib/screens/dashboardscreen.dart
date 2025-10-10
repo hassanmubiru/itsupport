@@ -58,6 +58,8 @@ class DashboardScreen extends StatelessWidget {
               )
             );
           }
+
+          final openTickets = provider.tickets.where((t) => t.status == 'Open').length;
           
         }
       )
