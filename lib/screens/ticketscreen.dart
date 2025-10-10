@@ -94,7 +94,44 @@ class _TicketscreenState extends State<Ticketscreen> {
         // Ticket List
         Expanded(
           child: ListenableBuilder(
-            
+            listenable: widget.provider,
+            builder:(context, _) {
+              if (widget.provider.isloading && widget.provider.tickets.isEmpty) {
+                return const Center(child:CircularProgressIndicator());
+                
+              }
+              var filteredTickets = widget.provider.tickets;
+              if(selectedFilter != 'All') {
+                filteredTickets = filteredTickets.where((ticket) => ticket.status == selectedFilter).toList();
+              }
+              if(searchQuery.isNotEmpty) {
+                filteredTickets = filteredTickets.where((ticket) => ticket.title.toLowerCase().contains(searchQuery) || ticket.description.toLowerCase().contains(searchQuery) || ticket.ticketNumber.toString().contains(searchQuery)).toList();
+              }
+
+              if(filteredTickets.isEmpty) {
+                return const Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [Icon(Icons.inbox, size: 64, color: Colors.grey[400]),
+                      Icon(Icons.inbox, size: 64, color: Colors.grey[400]),
+                      SizedBox(height: 16),
+                      Text('No tickets found', style: TextStyle(color: Colors.grey)),
+                    ],
+                    ),
+                );
+              }
+              return ListView.builder(
+                itemCount: filteredTickets.length,
+                itemBuilder: (context, index) {
+                  final ticket = filteredTickets[index];
+                  return ListTile(
+                    title: Text(ticket.title),
+                    subtitle: Text(ticket.description),
+                    trailing: Text(ticket.status),
+                  );
+                },
+              );
+            },
           ),
         )
         ],
