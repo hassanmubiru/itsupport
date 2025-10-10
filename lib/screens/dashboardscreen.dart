@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:itsupport/models/provider.dart';
 
 class DashboardScreen extends StatelessWidget {
-  const DashboardScreen({super.key});
+  final Provider provider;
+  const DashboardScreen({super.key, required this.provider});
 
   @override
   Widget build(BuildContext context) {
@@ -10,43 +12,33 @@ class DashboardScreen extends StatelessWidget {
         title: const Text('Dashboard'),
         actions:[
           IconButton(
+             icon: const Icon(Icons.refresh),
+             onPressed: (){
+              provider.loadTickets();
+              provider.loadMetrics();
+            },
+          ),
+          IconButton(
              icon: const Icon(Icons.notifications_outlined),
-             onPressed: (){},
-            
-            ),
-        ],
-      ),
-     body: SingleChildScrollView(
-      padding: const EdgeInsets.all(16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // info card
-          Row(
-            children: [
-              Expanded(
-                child: CardInfo(
-                  title: 'Open Tickets',
-                  value:'12',
-                  icon:Icons.confirmation_number,
-                  color:Colors.orange,
+             onPressed: (){
 
-                ),
-              ),
-              const SizedBox(width: 16,),
-                Expanded(
-                child: CardInfo(
-                  title: 'Open Tickets',
-                  value:'12',
-                  icon:Icons.confirmation_number,
-                  color:Colors.orange,
-                ),
-                ),
-              
-            ],
-          )
+            },
+          ),
         ],
       ),
+     body: RefreshIndicator(
+      onRefresh:()async{
+        await provider.loadTickets();
+        await provider.loadMetrics();
+      },
+      child:ListenableBuilder(
+        listenable:provider,
+        builder:(context,_){
+          if(provider.isLoading && provider.metrics==null){
+            return const Center(child:CircularProgressIndicator());
+          }
+        }
+      )
     )
     );
   }
