@@ -92,6 +92,11 @@ class _TicketscreenState extends State<Ticketscreen> {
           const SizedBox(height: 16),
 
         // Ticket List
+        Expanded(
+          child: ListenableBuilder(
+            
+          ),
+        )
         ],
       ),
     );
