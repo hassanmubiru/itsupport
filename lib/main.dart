@@ -77,24 +77,25 @@ void dispose(){
             selectedIndex = index;
           });
         },
-        destinations: const [
-          NavigationDestination(
+        items: const [
+          BottomNavigationBarItem(
             icon: Icon(Icons.dashboard_outlined),
             label: 'Dashboard',
           ),
-          NavigationDestination(
+          BottomNavigationBarItem(
             icon: Icon(Icons.support_agent_outlined),
             label: 'Tickets',
           ),
-          NavigationDestination(
+          BottomNavigationBarItem(
             icon: Icon(Icons.show_chart_outlined),
             label: 'Performance',
           ),
-          NavigationDestination(
+          BottomNavigationBarItem(
             icon: Icon(Icons.person_outline),
             label: 'Profile',
           ),
         ],
+    )
     );
   }
 }
