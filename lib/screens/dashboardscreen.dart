@@ -143,18 +143,36 @@ class DashboardScreen extends StatelessWidget {
                     child: Card(
                       child: Padding(
                         padding: const EdgeInsets.all(16.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(metric.name, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                            const SizedBox(height: 8),
-                            Text('Value: ${metric.value}', style: const TextStyle(fontSize: 16)),
-                            const SizedBox(height: 4),
-                            Text('Last Updated: ${metric.lastUpdated}', style: const TextStyle(color: Colors.grey)),
-                          ],
-                        ),
+                        child: PerformanceCard(
+                          title: '${metric.name} Usage',
+                          value: metric.value.toInt(),
+                          color: getMetricColor(metric.name),
+                        )
                       ),
                     ),
+                  );
+                }),
+                const SizedBox(height: 24),
+                // Recent Tickets
+                const Text(
+                  'Recent Tickets',
+                  style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 16),
+                ...provider.tickets.take(5).map((ticket){
+                  return RecentTicketItem(
+                    title:ticket.title,
+                    status:ticket.status,
+                    priority:ticket.priority,
+                    createdAt:ticket.createdAt,
+                    onTap:(){
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder:(context) => TicketDetailScreen(ticket:ticket,provider:provider),
+                        )
+                      );
+                    }
                   );
                 })
               ],
@@ -165,6 +183,26 @@ class DashboardScreen extends StatelessWidget {
     )
     );
   }
+}
+
+Color getMetricColor(String name) {
+  switch (name.toLowerCase()) {
+    case 'cpu':
+      return Colors.blue;
+    case 'memory':
+      return Colors.orange;
+    case 'disk':
+      return Colors.green;
+    default:
+      return Colors.purple;
+  }
+}
+String formatTime(DateTime time) {
+  final diff = DateTime.now().difference(time);
+  if (diff.inMinutes < 1) return 'Just now';
+  if (diff.inHours < 1) return '${diff.inMinutes}m ago';
+  if (diff.inDays < 1) return '${diff.inHours}h ago';
+  return '${diff.inDays}d ago';
 }
 
 // Define CardInfo widget outside of DashboardScreen
