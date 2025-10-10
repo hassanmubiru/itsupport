@@ -90,7 +90,46 @@ class DashboardScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 16),
-                //
+                // cardsinfo
+                Row(
+                  children:[
+                    Expanded(
+                      child: CardInfo(
+                        title: 'Open Tickets',
+                        value: '$openTickets',
+                        icon: Icons.confirmation_number,
+                        color: Colors.orange,
+                      ),
+                    ),
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: CardInfo(
+                        title: 'Resolved Tickets',
+                        value: '$resolvedTickets',
+                        icon: Icons.check_circle,
+                        color: Colors.green,
+                      ),
+                    ),
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: CardInfo(
+                        title: 'Pending Tickets',
+                        value: '$pendingTickets',
+                        icon: Icons.pending,
+                        color: Colors.blue,
+                      ),
+                    ),
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: CardInfo(
+                        title: 'Total',
+                        value: '${provider.tickets.length}',
+                        icon: Icons.list,
+                        color: Colors.purple,
+                      ),
+                    ),
+                  ]
+                )
               ],
             ),
           );
