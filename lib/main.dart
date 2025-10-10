@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:itsupport/models/provider.dart';
 import 'package:itsupport/screens/dashboardscreen.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -41,14 +42,29 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int selectedIndex = 0;
-  final List<Widget> screens = [
-    const DashboardScreen(),
-    const TicketScreen(),
-    const PerformanceScreen(),
-    const ProfileScreen(),
-  ];
+  final Provider provider = Provider();
+  @override
+  void initState() {
+    super.initState();
+    provider.loadTickets();
+    provider.loadMetrics();
+    provider.startRealtimeUpdates();
+  }
+@override
+void dispose(){
+  provider.stopRealtimeUpdates();
+  super.dispose();
+}
+
+  
   @override
   Widget build(BuildContext context) {
+    final screens = [
+      DashboardScreen(provider: provider),
+      TicketScreen(provider: provider),
+      PerformanceScreen(provider: provider),
+      ProfileScreen(),
+    ];
     return Scaffold(
       body: screens[selectedIndex],
       bottomNavigationBar: NavigationBar(

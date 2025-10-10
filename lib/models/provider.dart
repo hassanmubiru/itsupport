@@ -64,12 +64,35 @@ class Provider extends ChangeNotifier {
     ticketSubscription = SupabaseService.subscribeToTickets().listen((tickets){
       this.tickets = tickets;
       notifyListeners();
+    },
+    onError: (error) {
+      this.error = 'Error in ticket subscription:$error';
+      notifyListeners();
     });
+  
 
 //Subscribe to metrics real-time updates
     metricSubscription = SupabaseService.subscribeToMetrics().listen((metrics){
       this.metrics = metrics;
       notifyListeners();
+    }, onError: (error) {
+      this.error = 'Error in metrics subscription:$error';
+      notifyListeners();
     });
+
+    // update metrics periodically
+    Timer.periodic(const Duration(seconds: 30), (_) {
+      SupabaseService.updateMetrics();
+    });
+  }
+
+  void stopRealtimeUpdates(){
+    ticketSubscription?.cancel();
+    metricSubscription?.cancel();
+  }
+  @override
+  void dispose() {
+    stopRealtimeUpdates();
+    super.dispose();
   }
 }
