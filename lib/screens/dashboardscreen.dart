@@ -39,8 +39,26 @@ class DashboardScreen extends StatelessWidget {
           }
 
           if(provider.error != null){
-            return Center(child:Text('Error: ${provider.error}'));
+            return Center(
+              child:Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Icon(Icons.error, color: Colors.red, size: 65),
+                  const SizedBox(height: 16),
+                  Text('Error: ${provider.error}', style: TextStyle(color: Colors.red)),
+                  const SizedBox(height: 16),
+                  ElevatedButton(
+                    onPressed: (){
+                      provider.loadTickets();
+                      provider.loadMetrics();
+                    },
+                    child: const Text('Retry'),
+                  ),
+                ],
+              )
+            );
           }
+          
         }
       )
     )
