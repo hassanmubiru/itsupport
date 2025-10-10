@@ -349,7 +349,13 @@ class SupabaseService {
     }
 
     // Real-time subscriptions
-    static Future<void>subscriptions
+    static Stream<List<Ticket>> subscribeToTickets(){
+      return supabase.from('tickets').stream(primaryKey: ['id']).order('timestamp',ascending:false).limit(3).map((data)=>data.map((metric)=>Ticket.fromJson(metric)).toList());
+    }
+
+    static Stream<List<PerformanceMetric>> subscribeToMetrics(){
+      return supabase.from('performance_metrics').stream(primaryKey: ['id']).order('timestamp',ascending:false).limit(3).map((data)=>data.map((metric)=>PerformanceMetric.fromJson(metric)).toList());
+    }
 
   }
 
