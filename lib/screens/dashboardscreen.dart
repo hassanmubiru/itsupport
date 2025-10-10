@@ -82,14 +82,18 @@ class DashboardScreen extends StatelessWidget {
                             color: Colors.green,
                             shape: BoxShape.circle,
                           ),
-                        )
+                        ),
+                        const SizedBox(width: 8),
+                        const Text('Live :Real-time Updates Active', style: TextStyle(color: Colors.green, fontWeight: FontWeight.w600)),
                       ],
                     )
                   ),
-                )
+                ),
+                const SizedBox(height: 16),
+                //
               ],
             ),
-          )
+          );
         }
       )
     )
