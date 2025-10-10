@@ -277,13 +277,14 @@ class PerformanceCard extends StatelessWidget {
             TweenAnimationBuilder<double>(
               curve: Curves.easeInOut,
               tween: Tween<double>(begin: 0, end: value / 100),
-              duration: const Duration(seconds: 1),
+              duration: const Duration(milliseconds: 800),
               builder: (context, val, _) {
                 return LinearProgressIndicator(
                   value: val,
                   color: color,
-                  backgroundColor: color.withOpacity(0.2),
+                  backgroundColor: Colors.grey[200],
                   minHeight: 10,
+                  borderRadius: BorderRadius.circular(5),
                 );
               },
             )
@@ -292,3 +293,66 @@ class PerformanceCard extends StatelessWidget {
       ),
     );
   }
+}
+
+class RecentTicketItem extends StatelessWidget {
+  final String title;
+  final String status;
+  final String priority;
+  final DateTime createdAt;
+  final VoidCallback onTap;
+
+  const RecentTicketItem({
+    super.key,
+    required this.title,
+    required this.status,
+    required this.priority,
+    required this.createdAt,
+    required this.onTap,
+  });
+
+  Color getPriorityColor(String priority) {
+    switch (priority) {
+      case 'high':
+        return Colors.red;
+      case 'medium':
+        return Colors.orange;
+      case 'low':
+        return Colors.green;
+      default:
+        return Colors.grey;
+      
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      margin: const EdgeInsets.only(bottom: 9.0),
+      child: ListTile(
+        title: Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
+        subtitle: Text('Priority: $priority • Created: ${formatTime(createdAt)}'),
+        leading: CircleAvatar(
+          backgroundColor: getPriorityColor(priority).withOpacity(0.1),
+          child: Icon(
+            Icons.priority_high,
+            color: getPriorityColor(priority),
+          ),
+          
+        ),
+        onTap: onTap,
+        title:Text(title),
+        subtitle:Text('$priority • $time')
+        trailing: Chip(
+          label:Text(
+            priority
+            ,style:const TextStyle(fontSize:12),
+        ),
+        backgroundColor: getPriorityColor(  priority).withOpacity(0.1),
+        side:BorderSide.none,
+        ),
+      ),
+    );
+  }
+  
+}
