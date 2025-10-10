@@ -89,6 +89,7 @@ class _TicketscreenState extends State<Ticketscreen> {
               ],
             ),
           ),
+          const SizedBox(height: 16),
         ],
       ),
     );
