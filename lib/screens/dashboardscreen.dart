@@ -223,7 +223,7 @@ class CardInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: color.withOpacity(0.1),
+      elevation: 2,
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Row(
@@ -233,8 +233,10 @@ class CardInfo extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(title, style: TextStyle(fontWeight: FontWeight.bold)),
-                Text(value, style: TextStyle(fontSize: 20)),
+                Icon(icon,color:color,size:32),
+                const SizedBox(height: 8),
+                Text(title, style: TextStyle(fontSize:24, fontWeight:FontWeight.bold)),
+                Text(value, style: TextStyle(fontSize: 12, color: Colors.grey[600])),
               ],
             ),
           ],
