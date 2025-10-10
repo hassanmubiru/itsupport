@@ -46,7 +46,7 @@ class _MyHomePageState extends State<MyHomePage> {
     const TicketScreen(),
     const PerformanceScreen(),
     const ProfileScreen(),
-  ]
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
