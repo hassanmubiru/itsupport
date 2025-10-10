@@ -246,3 +246,49 @@ class CardInfo extends StatelessWidget {
   }
 }
 
+class PerformanceCard extends StatelessWidget {
+  final String title;
+  final int value;
+  final Color color;
+
+  const PerformanceCard({
+    super.key,
+    required this.title,
+    required this.value,
+    required this.color,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children:[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(title, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                Text('$value%', style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+              ],
+            ),
+            const SizedBox(height: 8),
+            TweenAnimationBuilder<double>(
+              curve: Curves.easeInOut,
+              tween: Tween<double>(begin: 0, end: value / 100),
+              duration: const Duration(seconds: 1),
+              builder: (context, val, _) {
+                return LinearProgressIndicator(
+                  value: val,
+                  color: color,
+                  backgroundColor: color.withOpacity(0.2),
+                  minHeight: 10,
+                );
+              },
+            )
+          ]
+        ),
+      ),
+    );
+  }
