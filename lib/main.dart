@@ -77,21 +77,21 @@ void dispose(){
             selectedIndex = index;
           });
         },
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.dashboard),
+        destinations: const [
+          NavigationDestination(
+            icon: Icon(Icons.dashboard_outlined),
             label: 'Dashboard',
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.support_agent),
+          NavigationDestination(
+            icon: Icon(Icons.support_agent_outlined),
             label: 'Tickets',
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.show_chart),
+          NavigationDestination(
+            icon: Icon(Icons.show_chart_outlined),
             label: 'Performance',
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
+          NavigationDestination(
+            icon: Icon(Icons.person_outline),
             label: 'Profile',
           ),
         ],
