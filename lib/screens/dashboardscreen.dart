@@ -341,8 +341,7 @@ class RecentTicketItem extends StatelessWidget {
           
         ),
         onTap: onTap,
-        title:Text(title),
-        subtitle:Text('$priority • $time')
+        subtitle: Text('$priority • ${formatTime(createdAt)}'),
         trailing: Chip(
           label:Text(
             priority
