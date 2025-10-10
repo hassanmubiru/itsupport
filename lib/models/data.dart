@@ -348,7 +348,8 @@ class SupabaseService {
       }
     }
 
-    // Real-time subscriptions'
+    // Real-time subscriptions
+    static Future<void>subscriptions
 
   }
 
