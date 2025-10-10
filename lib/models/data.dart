@@ -307,8 +307,11 @@ class SupabaseService {
       }
 
       await supabase.from('performance_metrics').insert(metrics);
-    } 
+    } catch (e) {
+      print('Error inserting default metrics: $e');
+      throw Exception('Failed to insert default metrics');
     }
+  }
     static Future <void> updateMetrics() async{
       try {
         // simulate metric updates
@@ -334,10 +337,18 @@ class SupabaseService {
             'trend': 'up',
             'trend_value': 0.5,
           },
-        ]
+        ];
+        for (var metric in metrics){
+          await supabase.from('performance_metrics').insert(metric);
+
+        }
       } catch (e) {
-        
+        print('Error updating performance metrics: $e');
+        throw Exception('Failed to update performance metrics');
       }
     }
+
+    // Real-time subscriptions'
+
   }
-}
+
