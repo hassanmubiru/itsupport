@@ -66,7 +66,10 @@ void dispose(){
       ProfileScreen(),
     ];
     return Scaffold(
-      body:
+      body:AnimatedSwitcher(
+        duration: Duration(milliseconds: 300),
+        child: screens[selectedIndex],
+      ),
     );
   }
 }
