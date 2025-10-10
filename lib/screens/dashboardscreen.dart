@@ -34,7 +34,7 @@ class DashboardScreen extends StatelessWidget {
       child:ListenableBuilder(
         listenable:provider,
         builder:(context,_){
-          if(provider.isLoading && provider.metrics.isEmpty){
+          if(provider.isloading && provider.metrics.isEmpty){
             return const Center(child:CircularProgressIndicator());
           }
 
