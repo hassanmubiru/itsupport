@@ -60,7 +60,36 @@ class DashboardScreen extends StatelessWidget {
           }
 
           final openTickets = provider.tickets.where((t) => t.status == 'Open').length;
-          
+          final resolvedTickets = provider.tickets.where((t) => t.status == 'Resolved').length;
+          final pendingTickets = provider.tickets.where((t) => t.status == 'Pending').length;
+
+          return SingleChildScrollView(
+            padding: const EdgeInsets.all(16.0) ,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Live Status
+                Card(
+                  color: Colors.green.shade50,
+                  child: Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child:Row(
+                      children: [
+                        Container(
+                          width: 8,
+                          height: 8,
+                          decoration: const BoxDecoration(
+                            color: Colors.green,
+                            shape: BoxShape.circle,
+                          ),
+                        )
+                      ],
+                    )
+                  ),
+                )
+              ],
+            ),
+          )
         }
       )
     )
